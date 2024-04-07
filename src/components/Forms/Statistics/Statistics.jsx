@@ -7,9 +7,9 @@ const Statistics = ({
 }) => {
   return (
     <div>
-      <p>Good: {this.state.good}</p>
-      <p>Neutral: {this.state.neutral}</p>
-      <p>Bad: {this.state.bad}</p>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
       <p>Total feedback: {totalFeedback}</p>
       <p>Positive feedback percentage: {positivePercentage}%</p>
     </div>

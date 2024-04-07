@@ -1,21 +1,59 @@
-import CreateFeedbackForm from './Forms/CreateFeedbackForm';
+import { Component } from 'react';
+import Section from './Forms/Section/Section';
+import FeedbackOptions from './Forms/FeedbackOptions/FeedbackOptions';
+import Statistics from './Forms/Statistics/Statistics';
 
-export const App = () => {
-  return (
-    <>
-      <div
-        style={{
-          height: '20vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
-        React homework template
+class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  handleClick = type => {
+    this.setState(prevState => {
+      return {
+        [type]: prevState[type] + 1,
+      };
+    });
+  };
+
+  countTotalFeedback = () => {
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const { good } = this.state;
+    const totalFeedback = this.countTotalFeedback();
+    return totalFeedback > 0 ? Math.round((good / totalFeedback) * 100) : 0;
+  };
+
+  render() {
+    const { good, neutral, bad } = this.state;
+    const totalFeedback = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+
+    return (
+      <div>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={['good', 'neutral', 'bad']}
+            onLeaveFeedback={this.handleClick}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={totalFeedback}
+            positivePercentage={positivePercentage}
+          />
+        </Section>
       </div>
-      <CreateFeedbackForm />
-    </>
-  );
-};
+    );
+  }
+}
+
+export default App;
