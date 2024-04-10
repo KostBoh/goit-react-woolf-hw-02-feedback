@@ -11,10 +11,10 @@ class App extends Component {
     bad: 0,
   };
 
-  handleClick = type => {
+  handleClick = option => {
     this.setState(prevState => {
       return {
-        [type]: prevState[type] + 1,
+        [option]: prevState[option] + 1,
       };
     });
   };
